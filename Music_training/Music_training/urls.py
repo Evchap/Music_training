@@ -22,7 +22,7 @@ from django.views.decorators.cache import never_cache
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls')),
+    #path('', include('courses.urls')),
 ]
 
 if settings.DEBUG:
