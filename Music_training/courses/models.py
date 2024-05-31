@@ -3,6 +3,8 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import User
 
+from .fields import OrderField
+
 # Models for BD
 class Subject(models.Model): # Book Django 2, page 304
     title = models.CharField(max_length=200)
@@ -40,9 +42,14 @@ class Module(models.Model):
                                )
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
+    order = OrderField(blank=True, for_fields=['course'])  # поле сортировки
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
-        return self.title
+        # return self.title
+        return '{}. {}'.format(self.order, self.title) # page 314
 
 
 from django.contrib.contenttypes.models import ContentType
@@ -64,6 +71,10 @@ class Content(models.Model): # page 311
 
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
+    order = OrderField(blank=True, for_fields=['module'])
+
+    class Meta:
+        ordering = ['order']
 
     class ItemBase(models.Model):
         owner = models.ForeignKey(User,
