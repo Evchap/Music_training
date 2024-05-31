@@ -5,8 +5,8 @@ from django.shortcuts import render
 from .models import Subject
 
 
-# def index(request):
-#
-#     all_posts = Subject.objects.all() # objects - менеджер
-#     print("all_posts", all_posts)
-#     return render(request, "main/index.html")
+def index(request):
+
+    all_courses = Subject.objects.all() # objects - менеджер
+    print("all_courses", all_courses)
+    return render(request, "courses/index.html")

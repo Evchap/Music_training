@@ -38,10 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # own
-    #'main.apps.MainConfig',
     'bootstrap4',
     'django.contrib.postgres',
-    # 'courses.apps.CoursesConfig',
+    'courses.apps.CoursesConfig',
 ]
 
 MIDDLEWARE = [
