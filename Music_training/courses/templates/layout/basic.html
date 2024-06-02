@@ -1,5 +1,6 @@
 {% load bootstrap4 %}
 {% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +10,7 @@
         <title>{% block title %}Главная{% endblock %} - Доска объявлений</title>
         {% bootstrap_css %}
         <link rel="stylesheet" type="text/css"
-              href="{% static 'main/style.css' %}">
+              href="{% static 'courses/style.css' %}">
         {% bootstrap_javascript jquery='slim' %}
     </head>
     <body class="container-fluid"
@@ -40,7 +41,7 @@
         </div>
         <div class="row">
             <nav class="col-md-auto nav flex-column border">
-                <a class="nav-link root" href="{% url 'main:index' %}" >Главная</a>
+                <a class="nav-link root" href="{% url 'courses:index' %}" >Главная</a>
                 <span class="nav-link root font-weight-bold"> Специальность </span>
                 <a class="nav-link" href="#">Жилье</a>
                 <a class="nav-link" href="#">Склады</a>
