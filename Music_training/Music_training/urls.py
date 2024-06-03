@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.sitemaps.views import index
 from django.urls import path, include
 from django.contrib.staticfiles.views import serve
 from django.views.decorators.cache import never_cache
@@ -26,12 +27,13 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+    path('', include('courses.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
             # обработчик  входа подсистемы аутентификации page 318
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
             # обработчик  выхода подсистемы аутентификации page 318
     path('admin/', admin.site.urls),
-    path('', include('courses.urls')),
+    path('course/', include('courses.urls')),
 ]
 
 if settings.DEBUG:
