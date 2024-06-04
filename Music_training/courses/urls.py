@@ -33,5 +33,8 @@ urlpatterns = [
     path('content/<int:id>/delete/', # page 339
         views.ContentDeleteView.as_view(),
         name='module_content_delete'),
+    path('module/<int:module_id>/', # page 339
+       views.ModuleContentListView.as_view(),
+       name='module_content_list'),
 
 ]

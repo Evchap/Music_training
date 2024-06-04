@@ -34,6 +34,7 @@ urlpatterns = [
             # обработчик  выхода подсистемы аутентификации page 318
     path('admin/', admin.site.urls),
     path('course/', include('courses.urls')),
+
 ]
 
 if settings.DEBUG:
