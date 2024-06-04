@@ -10,15 +10,19 @@ urlpatterns = [
     path('', index, name='index'),
 
     path('mine/', # page 326
-          views.ManageCourseListView.as_view(),
-          name='manage_course_list'),
+        views.ManageCourseListView.as_view(),
+        name='manage_course_list'),
     path('create/', # page 326
-          views.CourseCreateView.as_view(),
-          name='course_create'),
+        views.CourseCreateView.as_view(),
+        name='course_create'),
     path('<pk>/edit/', # page 326
-          views.CourseUpdateView.as_view(),
-          name='course_edit'),
+        views.CourseUpdateView.as_view(),
+        name='course_edit'),
     path('<pk>/delete/', # page 326
-          views.CourseDeleteView.as_view(),
-          name='course_delete'),
+        views.CourseDeleteView.as_view(),
+        name='course_delete'),
+    path('<pk>/module/', # page 333
+        views.CourseModuleUpdateView.as_view(),
+        name='course_module_update'),
+
 ]
