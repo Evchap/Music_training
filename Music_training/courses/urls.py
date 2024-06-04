@@ -24,5 +24,14 @@ urlpatterns = [
     path('<pk>/module/', # page 333
         views.CourseModuleUpdateView.as_view(),
         name='course_module_update'),
+    path('module/<int:module_id>/content/<model_name>/create/',  # page 336
+        views.ContentCreateUpdateView.as_view(),
+        name='module_content_create'),
+    path('module/<int:module_id>/content/<model_name>/<id>/', # page 336
+        views.ContentCreateUpdateView.as_view(),
+        name='module_content_update'),
+    path('content/<int:id>/delete/', # page 339
+        views.ContentDeleteView.as_view(),
+        name='module_content_delete'),
 
 ]
