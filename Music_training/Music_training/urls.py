@@ -20,8 +20,10 @@ from django.contrib.sitemaps.views import index
 from django.urls import path, include
 from django.contrib.staticfiles.views import serve
 from django.views.decorators.cache import never_cache
-
-
+# from Music_training.courses.views import CourseListView
+# from courses.views import CourseListView
+from courses.views import *
+# from ..courses.views import CourseListView
 from django.contrib.auth import views as auth_views
 
 
@@ -34,6 +36,7 @@ urlpatterns = [
             # обработчик  выхода подсистемы аутентификации page 318
     path('admin/', admin.site.urls),
     path('course/', include('courses.urls')),
+    path('', CourseListView.as_view(), name='course_list'), # page 348
 
 ]
 
