@@ -27,7 +27,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    path('', include('courses.urls')),
+    # path('', include('courses.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
             # обработчик  входа подсистемы аутентификации page 318
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),

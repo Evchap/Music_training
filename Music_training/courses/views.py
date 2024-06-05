@@ -192,4 +192,22 @@ class ModuleContentListView(TemplateResponseMixin, View): # page 339
                                     course__owner=request.user)
         return self.render_to_response({'module': module})
 
+from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
+
+class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View): # page 343
+    def post(self, request): # page 343
+        for id, order in self.request_json.items():
+            Module.objects.lter(id=id,
+                    course__owner=request.user).update(order=order)
+        return self.render_json_response({'saved': 'OK'})
+
+
+class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View): # 343
+    def post(self, request): # page 343
+        for id, order in self.request_json.items():
+            Content.objects.lter(id=id,
+                module__course__owner=request.user).update(order=order)
+        return self.render_json_response({'saved': 'OK'})
+
+
 
