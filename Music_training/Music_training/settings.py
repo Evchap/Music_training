@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'bootstrap4',
     'django.contrib.postgres',
-
+    'students.apps.StudentsConfig', # page 352 регистрация обучающихся
 ]
 
 MIDDLEWARE = [
