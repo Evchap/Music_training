@@ -16,3 +16,20 @@ class StudentRegistrationView(CreateView): # page 352 Обработка рег�
                              password=cd['password1'])
         login(self.request, user)
         return result
+
+
+from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CourseEnrollForm
+
+class StudentEnrollCourseView(LoginRequiredMixin, FormView): # page 355
+    course = None
+    form_class = CourseEnrollForm
+
+    def form_valid(self, form): # page 355
+        self.course = form.cleaned_data['course']
+        self.course.students.add(self.request.user)
+        return super(StudentEnrollCourseView, self).form_valid(form)
+
+    def get_success_url(self): # page 355
+        return reverse_lazy('student_course_detail', args=[self.course.id])

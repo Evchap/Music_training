@@ -230,8 +230,19 @@ class CourseListView(TemplateResponseMixin, View):  # page 347
 
 
 from django.views.generic.detail import DetailView
-class CourseDetailView(DetailView):  # page 348 обработчик, который будет
-    # показывать страницу курса
+# class CourseDetailView(DetailView):  # page 348 обработчик, который будет
+#     # показывать страницу курса
+#     model = Course
+#     template_name = 'courses/course/detail.html'
+
+from students.forms import CourseEnrollForm
+
+class CourseDetailView(DetailView): # page 356
     model = Course
     template_name = 'courses/course/detail.html'
 
+    def get_context_data(self, **kwargs): # page 356
+        context = super(CourseDetailView, self).get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(
+        initial={'course':self.object})
+        return context

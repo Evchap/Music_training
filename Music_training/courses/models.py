@@ -31,6 +31,9 @@ class Course(models.Model):
                                                         # человекопонятных url
     overview = models.TextField() # текстовое поле для создания краткого описания курса
     created = models.DateTimeField(auto_now_add=True) # дата и время создания курса
+    students = models.ManyToManyField(User,  # page 354 . Чтобы хранить сведения о том, в каких курсах участвуют студенты
+                                      related_name='courses_joined',
+                                      blank=True)
 
     class Meta:
         ordering = ['-created']
@@ -106,4 +109,5 @@ class Image(ItemBase):
 
 class Video(ItemBase):
     url = models.URLField()
+
 
