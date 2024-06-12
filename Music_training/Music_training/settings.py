@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 
 import django
 from django.utils.encoding import force_str
@@ -37,6 +38,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'courses.apps.CoursesConfig', # own
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,10 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # own
-    'courses.apps.CoursesConfig',
     'bootstrap4',
     'django.contrib.postgres',
     'students.apps.StudentsConfig', # page 352 регистрация обучающихся
+    # 'embed_video', # page 362
 ]
 
 MIDDLEWARE = [
@@ -141,3 +143,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from django.urls import reverse_lazy
+LOGIN_REDIRECT_URL = reverse_lazy('student_course_list') # page 359
+
+MEDIA_URL = '/media/' # page 361
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # page 361
+
+

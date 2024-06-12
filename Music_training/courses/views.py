@@ -18,7 +18,7 @@ from .models import Course
 
 class ManageCourseListView(ListView): # page 321 # обработчик запросов для создания, редактирования и удаления курсов
     model = Course
-    template_name = 'courses/manage/course/list.html'
+    template_name = 'courses/manage/course/list.html' # page 322
     def get_queryset(self):
         qs = super(ManageCourseListView, self).get_queryset()
         return qs.filter(owner=self.request.user)
@@ -29,7 +29,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Course
 
-class OwnerMixin(object): # page 322 обработчик для подучения базового QuerySetʼа, с которым будет работать обработчик. М
+class OwnerMixin(object): # page 322 обработчик для получения базового QuerySetʼа, с которым будет работать обработчик. М
     def get_queryset(self):
         qs = super(OwnerMixin, self).get_queryset()
         return qs.filter(owner=self.request.user)
@@ -48,7 +48,7 @@ class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin): # page 322
     template_name = 'courses/manage/course/form.html'
 
 # class ManageCourseListView(OwnerCourseMixin, ListView): # page 322
-#     template_name = 'courses/manage/course/list.html'
+#     template_name = 'courses/manage/course/list.html' # page 322
 #
 # class CourseCreateView(OwnerCourseEditMixin, CreateView): # page 322
 #     pass
@@ -184,7 +184,7 @@ class ContentDeleteView(View): # 338
         content.delete()
         return redirect('module_content_list', module.id)
 
-class ModuleContentListView(TemplateResponseMixin, View): # page 339
+class ModuleContentListView(TemplateResponseMixin, View): # page 338
     template_name = 'courses/manage/module/content_list.html'
 
     def get(self, request, module_id): # page 339
@@ -218,6 +218,7 @@ from .models import Subject
 class CourseListView(TemplateResponseMixin, View):  # page 347
     model = Course
     template_name = 'courses/course/list.html'
+
     def get(self, request, subject=None):  # page 347
         subjects = Subject.objects.annotate(
         total_courses=Count('courses'))
@@ -225,8 +226,12 @@ class CourseListView(TemplateResponseMixin, View):  # page 347
         if subject:
             subject = get_object_or_404(Subject, slug=subject)
             courses = courses.filter(subject=subject)
+            slug = courses.filter(slug=subject.slug) # добавил
 
-        return self.render_to_response({'subjects': subjects, 'subject': subject, 'courses': courses})
+        return self.render_to_response({'subjects': subjects,
+                                        'subject': subject,
+                                        'courses': courses })
+                                        # 'slug' : subject.slug })# добавил 'subject.slug' : subject.slug
 
 
 from django.views.generic.detail import DetailView
@@ -234,6 +239,7 @@ from django.views.generic.detail import DetailView
 #     # показывать страницу курса
 #     model = Course
 #     template_name = 'courses/course/detail.html'
+#     success_url = reverse_lazy('manage_course_list') # это вставил, может не надо
 
 from students.forms import CourseEnrollForm
 
@@ -246,3 +252,10 @@ class CourseDetailView(DetailView): # page 356
         context['enroll_form'] = CourseEnrollForm(
         initial={'course':self.object})
         return context
+
+from django.contrib.auth import logout
+
+class LogoutView(View): # нашел что-то похожее
+    def get(self, request):
+        logout(request)
+        return redirect('login')

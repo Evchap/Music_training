@@ -25,14 +25,16 @@ from django.views.decorators.cache import never_cache
 from courses.views import *
 # from ..courses.views import CourseListView
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
 urlpatterns = [
-    # path('', include('courses.urls')),
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('', include('courses.urls')),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'), # 318
             # обработчик  входа подсистемы аутентификации page 318
-    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(http_method_names = ['get', 'post', 'options']), name='logout'), # 318
             # обработчик  выхода подсистемы аутентификации page 318
     path('admin/', admin.site.urls),
     path('course/', include('courses.urls')),
@@ -43,3 +45,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns.append(path('static/<path:path>', never_cache(serve)))
+
+# if settings.DEBUG: # page 361
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT), # page 361

@@ -49,7 +49,7 @@ class Module(models.Model):
                                )
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    order = OrderField(blank=True, for_fields=['course'])  # поле сортировки
+    order = OrderField(blank=True, for_fields=['course'])  # 314 поле сортировки
 
     class Meta: # page 315
         ordering = ['order']
@@ -79,7 +79,7 @@ class Content(models.Model): # page 311
 
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
-    order = OrderField(blank=True, for_fields=['module']) # page 312
+    order = OrderField(blank=True, for_fields=['module']) # page 315
 
     class Meta:  # page 315
         ordering = ['order']
@@ -95,8 +95,8 @@ class ItemBase(models.Model): # page 311
     class Meta:
         abstract = True
 
-    def __str__(self):
-        return self.title
+    # def __str__(self): # page 315 стерто
+    #     return self.title # page 315 стерто
 
 class Text(ItemBase):
     content = models.TextField()
@@ -109,5 +109,14 @@ class Image(ItemBase):
 
 class Video(ItemBase):
     url = models.URLField()
+
+from django.template.loader import render_to_string
+from django.utils.safestring import mark_safe
+
+class ItemBase(models.Model): # page 360
+# ...
+    def render(self):
+        return render_to_string('courses/content/{}.html'.format(
+                    self._meta.model_name), {'item': self})
 
 
