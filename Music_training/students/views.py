@@ -71,3 +71,17 @@ class StudentCourseDetailView(DetailView): # page 357
             # Получаем первый модуль.
             context['module'] = course.modules.all()[0]
         return context
+
+
+from students.forms import CourseEnrollForm
+
+class CourseDetailView(DetailView): # page 356
+    model = Course
+    template_name = 'courses/course/detail.html'
+
+    def get_context_data(self, **kwargs): # page 356
+        context = super(CourseDetailView, self).get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(
+        initial={'course':self.object})
+        return context
+

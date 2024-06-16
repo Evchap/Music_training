@@ -7,7 +7,7 @@ from .views import index
 
 app_name = 'courses'
 urlpatterns = [
-    #path('', index, name='index'),
+    # path('', index, name='index'),
 
     path('mine/', # page 326
         views.ManageCourseListView.as_view(),
@@ -43,10 +43,10 @@ urlpatterns = [
         views.ContentOrderView.as_view(),
         name='content_order'),
     path('subject/<slug:subject>)/', # page 349
-        views.CourseListView.as_view(),
+        views.CourseListView.as_view(), # – для отображения всех курсов по выбранному предмету
         name='course_list_subject'),
     path('<slug:slug>/', # page 349
-        views.CourseDetailView.as_view(),
+        views.CourseDetailView.as_view(), # – для страницы подробного описания курса.
         name='course_detail'),
 
 ]

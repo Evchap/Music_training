@@ -14,7 +14,10 @@ import os
 import django
 from django.utils.encoding import force_str
 django.utils.encoding.force_text = force_str
+import django.utils.translation as original_translation
+from django.utils.translation import gettext_lazy
 
+original_translation.ugettext_lazy = gettext_lazy
 
 
 from pathlib import Path
@@ -39,6 +42,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'courses.apps.CoursesConfig', # own
+    'students.apps.StudentsConfig', # page 352 регистрация обучающихся
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,8 +52,7 @@ INSTALLED_APPS = [
     # own
     'bootstrap4',
     'django.contrib.postgres',
-    'students.apps.StudentsConfig', # page 352 регистрация обучающихся
-    # 'embed_video', # page 362
+    'embed_video', # page 362
 ]
 
 MIDDLEWARE = [
@@ -148,7 +151,7 @@ from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('student_course_list') # page 359
 
 MEDIA_URL = '/media/' # page 361
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # page 361
+
 
 

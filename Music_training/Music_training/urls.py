@@ -20,6 +20,8 @@ from django.contrib.sitemaps.views import index
 from django.urls import path, include
 from django.contrib.staticfiles.views import serve
 from django.views.decorators.cache import never_cache
+
+import Music_training
 # from Music_training.courses.views import CourseListView
 # from courses.views import CourseListView
 from courses.views import *
@@ -31,7 +33,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', include('courses.urls')),
+    #path('', include('courses.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'), # 318
             # обработчик  входа подсистемы аутентификации page 318
     path('accounts/logout/', auth_views.LogoutView.as_view(http_method_names = ['get', 'post', 'options']), name='logout'), # 318
@@ -43,8 +45,14 @@ urlpatterns = [
 
 ]
 
-if settings.DEBUG:
-    urlpatterns.append(path('static/<path:path>', never_cache(serve)))
+# if settings.DEBUG:
+#     urlpatterns.append(path('static/<path:path>', never_cache(serve)))
 
-# if settings.DEBUG: # page 361
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT), # page 361
+if settings.DEBUG: # page 361
+    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT), # page 361
+# add multiple paths using 'extend()'
+# urlpatterns.extend(static("/static/media/", document_root="/vol/web/media"))
+    urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)) # исправил
+
+# add a single path using 'append()'
+# urlpatterns.append(path("__debug__/", include(debug_toolbar.urls)))

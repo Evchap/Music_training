@@ -98,21 +98,21 @@ class CourseModuleUpdateView(TemplateResponseMixin, View): # page 332
     template_name = 'courses/manage/module/formset.html'
     course = None
 
-    def get_formset(self, data=None):
+    def get_formset(self, data=None): # page 332
         return ModuleFormSet(instance=self.course,
         data=data)
 
-    def dispatch(self, request, pk):
+    def dispatch(self, request, pk): # page 332
         self.course = get_object_or_404(Course,
                                          id=pk,
                                          owner=request.user)
         return super(CourseModuleUpdateView, self).dispatch(request, pk)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs): # page 332
         formset = self.get_formset()
         return self.render_to_response({'course': self.course, 'formset': formset})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs): # page 332
         formset = self.get_formset(data=request.POST)
         if formset.is_valid():
             formset.save()
@@ -143,7 +143,10 @@ class ContentCreateUpdateView(TemplateResponseMixin, View): # 335
                                                   'updated'])
         return Form(*args, **kwargs)
 
-    def dispatch(self, request, module_id, model_name, id=None): # 335
+    def dispatch(self, request, module_id, model_name, id=None): # 335 #y
+    # def dispatch(self, request, *args, **kwargs): # n # добавил вместо стоки def dispatch(self, request, module_id, model_name, id=None):
+    #     module_id = kwargs['module_id'] # добавил вместо стоки def dispatch(self, request, module_id, model_name, id=None):
+    #     model_name = kwargs['model_name'] # добавил вместо стоки def dispatch(self, request, module_id, model_name, id=None):
         self.module = get_object_or_404(Module,
                                          id=module_id,
                                          course__owner=request.user)
@@ -152,8 +155,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View): # 335
             self.obj = get_object_or_404(self.model,
                                           id=id,
                                           owner=request.user)
-        return super(ContentCreateUpdateView,
-            self).dispatch(request, module_id, model_name, id)
+        return super(ContentCreateUpdateView, self).dispatch(request, module_id, model_name, id)
 
     def get(self, request, module_id, model_name, id=None):  # page 336
         form = self.get_form(self.model, instance=self.obj)
@@ -179,6 +181,9 @@ class ContentDeleteView(View): # 338
         content = get_object_or_404(Content,
                                     id=id,
                                     module__course__owner=request.user)
+        # content = get_object_or_404(Module,
+        #                                 id=id,
+        #                                 course__owner=request.user)
         module = content.module
         content.item.delete()
         content.delete()
@@ -188,9 +193,7 @@ class ModuleContentListView(TemplateResponseMixin, View): # page 338
     template_name = 'courses/manage/module/content_list.html'
 
     def get(self, request, module_id): # page 339
-        module = get_object_or_404(Module,
-                                    id=module_id,
-                                    course__owner=request.user)
+        module = get_object_or_404(Module, id=module_id,course__owner=request.user)
         return self.render_to_response({'module': module})
 
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
@@ -198,15 +201,14 @@ from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View): # page 343
     def post(self, request): # page 343
         for id, order in self.request_json.items():
-            Module.objects.lter(id=id,
-                    course__owner=request.user).update(order=order)
+            Module.objects.filter(id=id, course__owner=request.user).update(order=order)
         return self.render_json_response({'saved': 'OK'})
 
 
 class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View): # 343
     def post(self, request): # page 343
         for id, order in self.request_json.items():
-            Content.objects.lter(id=id,
+            Content.objects.filter(id=id,
                 module__course__owner=request.user).update(order=order)
         return self.render_json_response({'saved': 'OK'})
 
@@ -226,11 +228,10 @@ class CourseListView(TemplateResponseMixin, View):  # page 347
         if subject:
             subject = get_object_or_404(Subject, slug=subject)
             courses = courses.filter(subject=subject)
-            slug = courses.filter(slug=subject.slug) # добавил
-
+           #  slug = courses.filter(slug=subject.slug) # добавил
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
-                                        'courses': courses })
+                                        'courses': courses}) #, })
                                         # 'slug' : subject.slug })# добавил 'subject.slug' : subject.slug
 
 
@@ -246,7 +247,8 @@ from students.forms import CourseEnrollForm
 class CourseDetailView(DetailView): # page 356
     model = Course
     template_name = 'courses/course/detail.html'
-
+    success_url = reverse_lazy('manage_course_list')  # это вставил, может не надо
+    
     def get_context_data(self, **kwargs): # page 356
         context = super(CourseDetailView, self).get_context_data(**kwargs)
         context['enroll_form'] = CourseEnrollForm(

@@ -63,7 +63,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
 
-class Content(models.Model): # page 311
+class Content(models.Model): # page 308,
     module = models.ForeignKey(Module,
                                 related_name='contents',
                                 on_delete=models.CASCADE)
@@ -79,10 +79,15 @@ class Content(models.Model): # page 311
 
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
-    order = OrderField(blank=True, for_fields=['module']) # page 315
+    order = OrderField(blank=True, for_fields=['module']) # page 315 порядковые номера объектов
+                                            # будут задаваться в рамках одного модуля
 
     class Meta:  # page 315
         ordering = ['order']
+
+
+from django.template.loader import render_to_string  # page 360
+from django.utils.safestring import mark_safe  # page 360
 
 class ItemBase(models.Model): # page 311
     owner = models.ForeignKey(User,
@@ -92,31 +97,30 @@ class ItemBase(models.Model): # page 311
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+
     class Meta:
         abstract = True
 
     # def __str__(self): # page 315 стерто
     #     return self.title # page 315 стерто
 
-class Text(ItemBase):
+    def render(self):  # page 360
+        return render_to_string('courses/content/{}.html'.format(  # page 360
+            self._meta.model_name), {'item': self})
+
+
+class Text(ItemBase): # 311
     content = models.TextField()
 
-class File(ItemBase):
+class File(ItemBase): # 311
     file = models.FileField(upload_to='files')
 
-class Image(ItemBase):
+class Image(ItemBase): # 311
     file = models.FileField(upload_to='images')
 
-class Video(ItemBase):
+
+class Video(ItemBase): # 311
     url = models.URLField()
 
-from django.template.loader import render_to_string
-from django.utils.safestring import mark_safe
-
-class ItemBase(models.Model): # page 360
-# ...
-    def render(self):
-        return render_to_string('courses/content/{}.html'.format(
-                    self._meta.model_name), {'item': self})
 
 
