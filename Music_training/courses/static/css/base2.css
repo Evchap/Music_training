@@ -1,0 +1,200 @@
+
+header h1{
+    color: red;
+    text-align: center;
+
+}
+body
+    { background:yellow;}
+    h1{color: red;
+    text-align: center;}
+
+html, body {
+    margin:0; /* расстояние по вертикали между блоками */
+    padding:0; /* расстояние по вертикали между содержимым блокам и его границами */
+    font-family: Arial, Tahoma;
+    color:#444;
+    }
+
+h1 {
+    font-size: 20px; /* размер шрифта для заголовка */
+    margin: 0 10px 20px 0; /* отступы сверху, справа, слева, снизу */
+    padding-bottom: 10px; /* расстояние снизу между текстом заголовка и границей блока заголовка */
+    border-bottom: 1px solid #ccc; /*  */
+    }
+
+#reg_form { /* в документе html найти объект с id с именем reg-form - <div id="reg_form"> чтобы различать какой <div>*/
+    width: 350px; /* ширина */
+    margin: 20px auto 0 auto;
+    padding: 10 px;
+    background: #fff;
+    box-shadow: 5px 5px 10px #aaa;
+}
+
+/* перенести в файл login*/
+div { /* в документе html найти объект с <div>*/
+    width: 450px; /* ширина */
+    margin: 20px auto 0 auto; /* auto - центрирование по горизонтали */
+    padding: 10 px; /* отступы со всех сторон */
+    background: #fff; /* белый цвет */
+    box-shadow: 5px 5px 10px #aaa; /* тень */
+}
+
+.reg_list { /* в документе html найти объект с именем - <ul class="reg_list"> */
+            /* . - точка - это класс, reg_list - имя класса в документе html */
+    list-style: none; /* не будет ни каких маркеров */
+    padding: 0;
+    margin: 0;
+}
+
+.reg_list li { /* в документе html в классе <ul class="reg_list"> найти объекты с именем li - они отвечают за каждый  */
+               /* элемент списка ul */
+    margin: 10px 0 10px 0; /* отступы между элементами списка ul */
+}
+
+/* ul.reg_list li { /* а так класс reg_list подключен только к тегу ul
+    margin: 10px 0 10px 0;
+} */
+
+.reg_title{ /* чтобы разрешить размещение в одной строке разных элементов - у нас надпись "имя" и прямоугольник для ввода имени */
+    display: inline-block;
+    min-width: 100px; /* минимальная ширина блока */
+
+input.reg_input{ /* применяем стили для текста, который будем вводить в прямоугольники - имя, пароль. */
+    width: 230px; /* ширина поля ввода */
+    border: 0; /* не будет рамок */
+    border-bottom: 1px solid #aaa; /* подчеркивание тега input. 1px - ширина. solid - сплошное, #aaa - светло-серое */
+    font-syze: 16px; /*  */
+}
+
+
+
+input.reg_input:focus{ /* focus - псевдокласс, чтобы подсвечивать когда вводишь текст - имя, пароль */
+    border-bottom: 1px solid #FFDB4D;
+}
+
+.reg_select { /* изменим выведение списка городов, пусть выделяется желтым */
+    width: 230px;
+    font-syze: 14px;
+    background: #FFF9B5; /* светло-желтый */
+}
+
+.reg_agree { /* изменим размер шрифта в надписи "Регистрируясь, вы принимаете условия соглашения." */
+    font-syze: 12px;
+}
+
+/* расположить две кнопки на одном уроне - слева и справа */
+/* в html -
+<div id="reg_control">
+    <div style="float:left;"><input class="reg_button" type="submit" value="Зарегистрироваться"></div>
+    <div style="float:right;"><input class="reg_button" type="reset" value="Очистить форму"></div>
+</div> */
+
+/* в css - */
+#reg_control {
+    overflow: hidden; /* находиться внутри формы, чтобы кнопки не выступали за форму */
+    margin-top: 40px; /* отступ сверху */
+
+input.reg_button { /* оформление самих кнопок */
+    background: #FFDB4D; /* светло-желтый */
+    font-syze: 16px; /* размер надписи */
+    color: #333; /* цвет надписи */
+    padding: 5px;
+    border: 1px solid #FFCF11; /* желтый */
+    border-radius: 3px;
+}
+
+/*header h1 {
+background-color: #11ffee00; /* Fully transparent */
+
+/*background: url("Group1.png") left/ auto 100% no-repeat,
+            url("Group1.png") right / auto 100% no-repeat;*/
+
+
+
+
+/*
+background-size
+background-position
+background-size: cover
+*/
+/*}
+.root {
+font-size: larger;
+}
+
+
+
+form {
+  border: 23px solid #f1f1f1;
+
+}
+
+/* Full-width inputs */
+/*input[type=text], input[type=password] {
+  width:  100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+/*button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+/*button:hover {
+  opacity: 0.8;
+}
+
+/* Extra style for the cancel button (red) */
+/*.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the avatar image inside this container */
+/*.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+/* Avatar image */
+/*img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+/* Add padding to containers */
+/*.container {
+  padding: 16px;
+}
+
+/* The "Forgot password" text */
+/*span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+/*@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
+}
+
+*/

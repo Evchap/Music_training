@@ -30,29 +30,32 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
-
-
 urlpatterns = [
-    #path('', include('courses.urls')),
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'), # 318
-            # обработчик  входа подсистемы аутентификации page 318
-    path('accounts/logout/', auth_views.LogoutView.as_view(http_method_names = ['get', 'post', 'options']), name='logout'), # 318
-            # обработчик  выхода подсистемы аутентификации page 318
+    # path('', include('courses.urls')),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),  # 318
+    # обработчик  входа подсистемы аутентификации page 318
+    path('accounts/logout/', auth_views.LogoutView.as_view(http_method_names=['get', 'post', 'options']),
+         name='logout'),  # 318
+    # обработчик  выхода подсистемы аутентификации page 318
+    # path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html', redirect_field_name='index'), # добавил
+    #       name='login'), # добавил
+    # path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html', next_page='index'), # добавил
+    #       name='logout'), # добавил
     path('admin/', admin.site.urls),
     path('course/', include('courses.urls')),
-    path('', CourseListView.as_view(), name='course_list'), # page 348
-    path('students/', include('students.urls')), # page 353
+    path('', CourseListView.as_view(), name='course_list'),  # page 348
+    path('students/', include('students.urls')),  # page 353
 
 ]
 
 # if settings.DEBUG:
 #     urlpatterns.append(path('static/<path:path>', never_cache(serve)))
 
-if settings.DEBUG: # page 361
+if settings.DEBUG:  # page 361
     # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT), # page 361
-# add multiple paths using 'extend()'
-# urlpatterns.extend(static("/static/media/", document_root="/vol/web/media"))
-    urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)) # исправил
+    # add multiple paths using 'extend()'
+    # urlpatterns.extend(static("/static/media/", document_root="/vol/web/media"))
+    urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))  # исправил
 
 # add a single path using 'append()'
 # urlpatterns.append(path("__debug__/", include(debug_toolbar.urls)))

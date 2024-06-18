@@ -1,74 +1,217 @@
+@import 'https://fonts.googleapis.com/css2?family=Suez+One&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap';
 
 
+/*
+.suez-one-regular {
+  font-family: "Suez One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+*/
 
-form {
-  border: 23px solid #f1f1f1;
+/*
+.roboto-slab-<uniquifier> {
+  font-family: "Roboto Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+*/
 
+* {  /* для всего документа */
+    margin:0;
+    padding: 0;
 }
 
-/* Full-width inputs */
-input[type=text], input[type=password] {
-  width:  100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-/* Set a style for all buttons */
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-/* Add a hover effect for buttons */
-button:hover {
-  opacity: 0.8;
-}
-
-/* Extra style for the cancel button (red) */
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
-
-/* Center the avatar image inside this container */
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-/* Avatar image */
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
-
-/* Add padding to containers */
-.container {
-  padding: 16px;
-}
-
-/* The "Forgot password" text */
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-    display: block;
-    float: none;
-  }
-  .cancelbtn {
+body {
     width: 100%;
-  }
+    heigth: 100%;
 }
+
+a {  /* для всех ссылок на сайте */
+    color: #fa713e;
+    text-decoration: none;
+    transition: all.6s ease; /* чтобы цвет ссылок за 6 секунд менялся когда НАВЕЛИ мышку*/
+    -ms-transition: all.6s ease; /* для разных браузеров */
+    -o-transition: all.6s ease; /* для оперы */
+    -moz-transition: all.6s ease; /* для мозилы */
+    -webkit -transition: all.6s ease; /* для сафари */
+}
+
+a:hover {
+    color: #c34f25; /* на этот цвет будет меняться ссылка, когда ОТВЕЛИ мышку */
+    text-decoration: none;
+    transition: all.6s ease; /* для разных браузеров */
+    -o-transition: all.6s ease; /* для оперы */
+    -moz-transition: all.6s ease; /* для мозилы */
+    -webkit -transition: all.6s ease; /* для сафари */
+}
+
+img {
+    max-width: 100%; /* чтобы картинка не выходила за пределы окна */
+    height: 100%;
+    width: auto\9;
+    -moz-transition: all.3s ease-out; /* чтобы картинка плавно передвигались */
+    -o-transition: all.3s ease-out; /* чтобы картинка плавно передвигались */
+    -webkit-transition: all.3s ease-out; /* чтобы картинка плавно передвигались */
+}
+
+hr { /* горизонтальные линии */
+    display: block;
+    height: 1px;
+    border:0;
+    border-top: 1px solid #ccc; /* сероватый цвет */
+    margin: 1em 0;
+    padding: 0;
+}
+
+/* HEADER */
+header {
+    float: left;
+    background-color: #343434;
+    width: 99.4%;
+    padding: 0.3%;
+    color: white;
+    border-bottom: 5px solid #59595a;/* solid - линия */
+}
+
+
+
+header>div#logo>a>img { /* картинка */
+    width: 55px;
+    height: 55px;
+    float: left; /* расположить слева */
+}
+
+header>div#logo>a { /* всплывающие ссылки, когда нажмешь */
+    color: white;
+}
+
+header>div#logo>a>span { /*  */
+    color: white;
+    font-size: 2.5em;
+    margin-left: 10px;
+    font-family: "Suez One", serif; /* вставляем код того шрифта, кот. скачали */
+}
+
+                        /* адаптивность для разных устройств*/
+@media (min-width: 950px) {/* если ширина экрана 950 *//* это настройки для #logo #about #reg-auth */
+    header>div#logo>a>img {
+        margin-left: 5%;
+    }
+
+    #logo {
+        float: left;
+        width: 40%;
+    }
+
+    #about {
+        float: left;
+        width: 30%;
+    }
+
+    #reg-auth {
+        float: right;
+        width: 30%;
+    }
+}
+
+@media (max-width: 949px) and (min-width:525px) {/* если ширина экрана 950 */
+    header>div#logo>a>img {
+        margin-left: 15%;
+    }
+
+    #logo {
+        float: left;
+        width: 50%;
+    }
+
+    #about { /* при сужении экрана этот блок скрываем */
+        visibility: hidden;
+        display: none;
+    }
+
+    #reg-auth {
+        float: right;
+        width: 50%;
+    }
+}
+
+@media (max-width: 524px) {
+    header>div#logo>a>img {
+        margin-left: 5%;
+    }
+
+    #logo {
+        width: 100%;
+    }
+
+    #about { /* при сужении экрана этот блок скрываем */
+        visibility: hidden;
+        display: none;
+    }
+
+    #reg-auth {
+        visibility: hidden;
+        display: none;
+    }
+}
+
+
+#about {
+    text-align: center;
+    font-family: "Roboto Slab", serif;
+    font-size: 1em;
+    padding-top: 16px;
+}
+
+#about>a { /* ссылки */
+    color: white;
+}
+
+#about>a:hover { /* эффект, при наведении на ссылку  */
+    color: #dfdfdf;
+    border-bottom: 1px solid silver/* нижняя граница будет подчеркиваться */
+}
+
+#about>a:last-child {/* последний элемент, последней ссылки */
+    margin-left: 10%;
+}
+
+#reg_auth>a { /* ссылки */
+    color: white;
+}
+
+#reg_auth>a:hover>div.btn { /* поведение кнопки при hover - наведении */
+    /* эффект нажатия - кнопка становится немного меньше */
+    border-bottom: 2px solid rgba(217, 91, 72, 1);/*  */
+    margin-top: 16px;
+}
+
+#reg_auth>a:active>div.btn { /* поведение кнопки при active - нажатии */
+    /* эффект нажатия - кнопка становится немного меньше */
+    border-bottom: 0;
+    margin-top: 16px;
+}
+
+#reg_auth>a>div.btn { /* кнопки */
+    float: right;
+    margin-right: 3%;
+    margin-top: 15px;
+    border-radius:5px;
+    padding: 5px 9px;
+    font-size: 0.6em;
+    background-color: #f44336;
+    text-shadow: #454545 0 0 2px;/* обводка, 2px - толщина */
+    border-bottom: 4px solid rgba(217, 91, 72, 1);/*  */
+    font-family: "Roboto Slab", serif;
+}
+
+
+
+
+
+
+
+

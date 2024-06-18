@@ -4,31 +4,46 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>{% block title %}Music_training {% endblock %}</title>
-  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+  <title>Music_training</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css" media="all">
+  <meta name="description"  content="Musical and educational site">
+  <meta name="keywords" content="Fortepiano, solfegio">
+  <meta name="viewport" content="width=device-width, inicial-scale=1">
+  <link href="{% static 'icons/Arrow_up.png' %}" rel="shorcut icon" type="image/x-icon">
 </head>
 <body>
-  <div id="header">
-    <a href="/" class="logo">Music_training </a>
-    <ul class="menu">
-      {% if request.user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Sign out</a></li>
-      {% else %}
-        <li><a href="{% url 'login' %}">Sign in</a></li>
-      {% endif %}
-    </ul>
-  </div>
-  <div id="content">
-    {% block content %}
-    {% endblock %}
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      {% block domready %}
-      {% endblock %}
-    });
-  </script>
+  <header>
+    <div id="logo">
+      <a href="/" title="На главную">
+        <img src="static/icons/Arrow_up.png" title="Music_training" >
+        <span>Music training</span>
+      </a>
+    </div>
+    <div id="about">
+      <a href="" title="Узнать детальнее о программах">Программы</a>
+      <a href="" title="Написать нам письмо">Обратная связь</a>
+    </div>
+
+    <div id="reg_auth">
+      <a href='http://127.0.0.1:8000/accounts/login/' title="Войти в личный кабинет">
+        <div class="btn">Войти</div>
+      </a>
+      <a href='http://127.0.0.1:8000/accounts/logout/' title="Выйти">
+        <div class="btn">Выйти</div>
+      </a>
+      <a href="http://127.0.0.1:8000/students/register/" title="Зарегистрироваться">
+        <div class="btn">Регистрация</div>
+      </a>
+
+    </div>
+
+  </header>
+        <div class="row">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer class="mt-3">
+            <p class="text-left font-italic">&copy; читатели.</p>
+        </footer>
 </body>
 </html>
