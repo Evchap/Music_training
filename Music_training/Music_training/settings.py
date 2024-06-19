@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'django.contrib.postgres',
     'embed_video', # page 362
+    # 'fontawesomefree' - сайт с иконками телеграмм и т.д.
 ]
 
 MIDDLEWARE = [
