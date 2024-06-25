@@ -32,6 +32,11 @@ urlpatterns = [
     path('module/<int:module_id>/', # page 339
          views.ModuleContentListView.as_view(),
          name='module_content_list'),
-
+    path('module/order/', # page 343
+          views.ModuleOrderView.as_view(),
+            name='module_order'),
+    path('content/order/', # page 344
+          views.ContentOrderView.as_view(),
+          name='content_order'),
 
 ]
