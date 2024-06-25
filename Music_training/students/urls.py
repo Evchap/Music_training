@@ -17,5 +17,14 @@ urlpatterns = [ # page 353
     path('course/<pk>/<module_id>/', # page 358
         views.StudentCourseDetailView.as_view(),
         name='student_course_detail_module'),
+    path('courses/', # page 358
+        views.StudentCourseListView.as_view(),
+        name='student_course_list'),
+    path('course/<pk>/',  # page 358
+        views.StudentCourseDetailView.as_view(),
+        name='student_course_detail'),
+    path('course/<pk>/<module_id>/', # page 358
+        views.StudentCourseDetailView.as_view(),
+        name='student_course_detail_module'),
 
 ]

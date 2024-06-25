@@ -41,6 +41,16 @@ class StudentEnrollCourseView(LoginRequiredMixin, FormView): # page 355 обра
 from django.views.generic.list import ListView
 from courses.models import Course
 
+# class StudentCourseListView(LoginRequiredMixin, ListView): # page 357
+#     model = Course
+#     template_name = 'students/course/list.html'
+#     def get_queryset(self): # page 357
+#         qs = super(StudentCourseListView, self).get_queryset()
+#         return qs.filter(students__in=[self.request.user])
+
+from django.views.generic.list import ListView
+from courses.models import Course
+
 class StudentCourseListView(LoginRequiredMixin, ListView): # page 357
     model = Course
     template_name = 'students/course/list.html'

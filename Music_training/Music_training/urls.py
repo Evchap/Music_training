@@ -20,6 +20,9 @@ from django.contrib.sitemaps.views import index
 from django.urls import path, include
 from django.contrib.staticfiles.views import serve
 from django.views.decorators.cache import never_cache
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 import Music_training
 # from Music_training.courses.views import CourseListView
@@ -42,14 +45,6 @@ urlpatterns = [
     path('students/', include('students.urls')), # page 353
 ]
 
-# if settings.DEBUG:
-#     urlpatterns.append(path('static/<path:path>', never_cache(serve)))
+if settings.DEBUG: # page 361
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # page 361
 
-if settings.DEBUG:  # page 361
-    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT), # page 361
-    # add multiple paths using 'extend()'
-    # urlpatterns.extend(static("/static/media/", document_root="/vol/web/media"))
-    urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))  # исправил
-
-# add a single path using 'append()'
-# urlpatterns.append(path("__debug__/", include(debug_toolbar.urls)))

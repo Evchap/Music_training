@@ -72,6 +72,8 @@ class Content(models.Model): # page 308
     class Meta:
         ordering = ['order']
 
+from django.template.loader import render_to_string # page 360
+from django.utils.safestring import mark_safe # page 360
 
 class ItemBase(models.Model): # page 311
     owner = models.ForeignKey(User,
@@ -81,11 +83,19 @@ class ItemBase(models.Model): # page 311
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+
+
     class Meta:
         abstract = True
 
     def __str__(self):
         return self.title
+
+
+
+    def render(self): # page 360
+        return render_to_string('courses/content/{}.html'.format( # page 360
+                    self._meta.model_name), {'item': self}) # page 360
 
 class Text(ItemBase): # page 311
     content = models.TextField()
