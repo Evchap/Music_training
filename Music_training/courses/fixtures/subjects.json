@@ -1,0 +1,10 @@
+[
+  {
+    "model": "courses.subject",
+    "pk": 1,
+    "fields": {
+      "title": "Mathematics",
+      "slug": "mathematics"
+    }
+  }
+]

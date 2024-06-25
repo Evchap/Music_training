@@ -31,21 +31,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # path('', include('courses.urls')),
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),  # 318
-    # обработчик  входа подсистемы аутентификации page 318
+    # path('admin/', admin.site.urls),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    # page 318 обработчик  входа подсистемы аутентификации
     path('accounts/logout/', auth_views.LogoutView.as_view(http_method_names=['get', 'post', 'options']),
-         name='logout'),  # 318
-    # обработчик  выхода подсистемы аутентификации page 318
-    # path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html', redirect_field_name='index'), # добавил
-    #       name='login'), # добавил
-    # path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html', next_page='index'), # добавил
-    #       name='logout'), # добавил
-    path('admin/', admin.site.urls),
-    path('course/', include('courses.urls')),
-    path('', CourseListView.as_view(), name='course_list'),  # page 348
-    path('students/', include('students.urls')),  # page 353
-
+         name='logout'),  # page 318 обработчик  выхода подсистемы аутентификации
+    path('admin/', admin.site.urls),  # page 318
+    path('course/', include('courses.urls')),  # 326
 ]
 
 # if settings.DEBUG:

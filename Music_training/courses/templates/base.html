@@ -1,70 +1,35 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
   <meta charset="utf-8" />
-  <title>Music_training</title>
-  <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css" media="all">
-  <meta name="description"  content="Musical and educational site">
-  <meta name="keywords" content="Fortepiano, solfegio">
-  <meta name="viewport" content="width=device-width, inicial-scale=1">
-  <link href="{% static 'icons/Arrow_up.png' %}" rel="shorcut icon" type="image/x-icon">
+  <title>{% block title %}Music_training {% endblock %}</title>
+  <link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
+
+  <link rel="icon" href="{% static 'base/icons/favicon.ico' %}">
+
 <body>
-  <div id="wrapper">
-    <div id="content">
-      <header>
-        <div id="logo">
-          <a href="/" title="На главную">
-            <img src="static/icons/Arrow_up.png" title="Music_training" >
-            <span>Music training</span>
-          </a>
-        </div>
-        <div id="about">
-          <a href="" title="Узнать детальнее о программах">Программы</a>
-          <a href="" title="Написать нам письмо">Обратная связь</a>
-        </div>
-
-        <div id="reg_auth">
-          <a href='http://127.0.0.1:8000/accounts/login/' title="Войти в личный кабинет">
-            <div class="btn">Войти</div>
-          </a>
-          <a href='http://127.0.0.1:8000/accounts/logout/' title="Выйти">
-            <div class="btn">Выйти</div>
-          </a>
-          <a href="http://127.0.0.1:8000/students/register/" title="Зарегистрироваться">
-            <div class="btn">Регистрация</div>
-          </a>
-        </div>
-      </header>
-        <div class="row">
-                {% block content %}
-                {% endblock %}
-        </div>
-    </div>
-    <footer>
-      <div id="site_name">
-        <span>Music training</span>
-      </div>
-      <div id="clear"></div>
-      <div id="footer_menu">
-        <a href="" title="Еще ноты">Ноты</a>
-        <a href="" title="Поддерать проект">Поддержать проект</a>
-        <a href="" title="Обратная связь">Обратная связь</a>
-      </div>
-      <div id="rights">
-        <a href="">&copy; <time>2024</time></a>
-      </div>
-      <div id="social">
-        <a href="" title="Группа в FaseBook">FaseBook</a>
-        <a href="" title="Группа в Viber">Viber</a>
-        <a href="" title="Канал на YouTube">YouTube</a>
-        <a href="" title="Группа в Telegram">Telegram</a>
-      </div>
-    </footer>
+  <div id="header">
+    <a href="/" class="logo">Music_training </a>
+    <ul class="menu">
+      {% if request.user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Sign out</a></li>
+      {% else %}
+        <li><a href="{% url 'login' %}">Sign in</a></li>
+      {% endif %}
+    </ul>
   </div>
-
-
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      {% block domready %}
+      {% endblock %}
+    });
+  </script>
 </body>
 </html>

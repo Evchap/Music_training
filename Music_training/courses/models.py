@@ -1,77 +1,63 @@
 from django.db import models
+
+from django.db import models
 from django.contrib.auth.models import User
 
-from .fields import OrderField
-
-
-# from .fields import OrderField
-
-# Models for BD
-
-
-class Subject(models.Model): # Book Django 2, page 304
+class Subject(models.Model):  # page 304
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
 
-    class Meta:
-        ordering=['title']
+    class Meta: # page 304
+        ordering = ['title']
 
-    def __str__(self):
+    def __str__(self): # page 304
         return self.title
+class Course(models.Model): # page 304
+    owner = models.ForeignKey(User,
+                               related_name='courses_created',
+                               on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject,
+                                 related_name='courses',
+                                 on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True)
+    overview = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
 
-class Course(models.Model):
-    owner = models.ForeignKey(User, # преподаватель, который создал курс
-                              related_name='courses_created',
-                              on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, # предмет, к которому привязан курс
-                                related_name='courses',
-                                on_delete=models.CASCADE)
-    title = models.CharField(max_length=200) # название курса
-    slug = models.SlugField(max_length=200, unique=True) # слаг курса, будем использовать его для формирования
-                                                        # человекопонятных url
-    overview = models.TextField() # текстовое поле для создания краткого описания курса
-    created = models.DateTimeField(auto_now_add=True) # дата и время создания курса
-    students = models.ManyToManyField(User,  # page 354 . Чтобы хранить сведения о том, в каких курсах участвуют студенты
-                                      related_name='courses_joined',
-                                      blank=True)
-
-    class Meta:
+    class Meta: # page 304
         ordering = ['-created']
-
-    def __str__(self):
+    def __str__(self): # page 304
         return self.title
+from .fields import OrderField
 
 
-class Module(models.Model):
+class Module(models.Model): # page 304
     course = models.ForeignKey(Course,
-                               related_name='modules',
-                               on_delete=models.CASCADE
-                               )
+                                related_name='modules',
+                                on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    order = OrderField(blank=True, for_fields=['course'])  # 314 поле сортировки
+    order = OrderField(blank=True, for_fields=['course'])  # page 314 поле сортировки в модели
 
-    class Meta: # page 315
+    # def __str__(self): # page 304
+    #     return self.title
+
+    class Meta:
         ordering = ['order']
 
-    def __str__(self):
-#        return self.title
-        return '{}. {}'.format(self.order, self.title) # page 314
-
-
+    def __str__(self):  # page 314
+        return '{}. {}'.format(self.order, self.title)
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
 
-class Content(models.Model): # page 308,
+class Content(models.Model): # page 308
     module = models.ForeignKey(Module,
                                 related_name='contents',
                                 on_delete=models.CASCADE)
-#    content_type = models.ForeignKey(ContentType, # page 311
-#                                on_delete=models.CASCADE)
-    content_type = models.ForeignKey(ContentType, # page 312
+    content_type = models.ForeignKey(ContentType,  # page 312
                                      on_delete=models.CASCADE,
-                                     limit_choices_to={'model__in':(
+                                     limit_choices_to={'model__in': (
                                          'text',
                                          'video',
                                          'image',
@@ -79,48 +65,36 @@ class Content(models.Model): # page 308,
 
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
-    order = OrderField(blank=True, for_fields=['module']) # page 315 порядковые номера объектов
-                                            # будут задаваться в рамках одного модуля
+    order = OrderField(blank=True, for_fields=['module'])  # page 315
 
-    class Meta:  # page 315
+    class Meta:
         ordering = ['order']
 
 
-from django.template.loader import render_to_string  # page 360
-from django.utils.safestring import mark_safe  # page 360
-
 class ItemBase(models.Model): # page 311
     owner = models.ForeignKey(User,
-                                  related_name='%(class)s_related',
-                                  on_delete=models.CASCADE)
+                               related_name='%(class)s_related',
+                               on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-
     class Meta:
         abstract = True
 
-    # def __str__(self): # page 315 стерто
-    #     return self.title # page 315 стерто
+    def __str__(self):
+        return self.title
 
-    def render(self):  # page 360
-        return render_to_string('courses/content/{}.html'.format(  # page 360
-            self._meta.model_name), {'item': self})
-
-
-class Text(ItemBase): # 311
+class Text(ItemBase): # page 311
     content = models.TextField()
 
-class File(ItemBase): # 311
+class File(ItemBase): # page 311
     file = models.FileField(upload_to='files')
 
-class Image(ItemBase): # 311
+class Image(ItemBase): # page 311
     file = models.FileField(upload_to='images')
+# может быть не file а image ?
 
-
-class Video(ItemBase): # 311
+class Video(ItemBase): # page 311
     url = models.URLField()
-
-
 
