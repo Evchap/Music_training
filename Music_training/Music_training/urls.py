@@ -39,6 +39,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),  # page 318
     path('course/', include('courses.urls')),  # 326
     path('', CourseListView.as_view(), name='course_list'), # page 348
+    path('students/', include('students.urls')), # page 353
 ]
 
 # if settings.DEBUG:
