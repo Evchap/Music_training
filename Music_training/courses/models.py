@@ -23,7 +23,9 @@ class Course(models.Model): # page 304
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-
+    students = models.ManyToManyField(User,  # page 354
+                                      related_name='courses_joined', # page 354
+                                      blank=True) # page 354
     class Meta: # page 304
         ordering = ['-created']
     def __str__(self): # page 304
@@ -97,4 +99,5 @@ class Image(ItemBase): # page 311
 
 class Video(ItemBase): # page 311
     url = models.URLField()
+
 
