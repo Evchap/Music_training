@@ -38,5 +38,11 @@ urlpatterns = [
     path('content/order/', # page 344
           views.ContentOrderView.as_view(),
           name='content_order'),
+    path('subject/<slug:subject>)/', # page 349
+          views.CourseListView.as_view(),
+          name='course_list_subject'),
+    path('<slug:slug>/', # page 349
+          views.CourseDetailView.as_view(),
+          name='course_detail'),
 
 ]

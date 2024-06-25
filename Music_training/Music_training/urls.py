@@ -38,6 +38,7 @@ urlpatterns = [
          name='logout'),  # page 318 обработчик  выхода подсистемы аутентификации
     path('admin/', admin.site.urls),  # page 318
     path('course/', include('courses.urls')),  # 326
+    path('', CourseListView.as_view(), name='course_list'), # page 348
 ]
 
 # if settings.DEBUG:
